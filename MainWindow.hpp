@@ -26,10 +26,11 @@ public slots:
     void onImport();
     void onImagePathChanged(QString path);
     void onTextChanged();
+    void saveImage();
 
 protected:
 private:
-    Ui::MainWindow *m_pUi;
+    Ui::MainWindow *m_pUi; //this is Qt magic. It takes our Form (MainWindow.ui) and tunrs it into a variable that we can use!
 
     QString m_version;
     bool m_useHex;

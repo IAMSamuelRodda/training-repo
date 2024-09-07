@@ -30,6 +30,7 @@ public slots:
     void setLabelThreeNumber(int number);
 
     void setLabelThree(QString text);
+    void saveImage(QString filePath);
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event);

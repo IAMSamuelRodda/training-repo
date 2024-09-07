@@ -6,6 +6,7 @@
 #include <QTemporaryFile>
 #include <QUuid>
 
+//Constructor
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , m_pUi(new Ui::MainWindow)
@@ -22,7 +23,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(m_pUi->okButton, SIGNAL(clicked()), this, SLOT(setLabelToBob()));
     connect(m_pUi->okButton, SIGNAL(clicked()), this, SLOT(onOkClicked()));
-    connect(m_pUi->updateButton, SIGNAL(clicked()), m_pUi->viewer, SLOT(onUpdateClicked()));
+    //connect(m_pUi->updateButton, SIGNAL(clicked()), m_pUi->viewer, SLOT(onUpdateClicked()));
+    connect(m_pUi->updateButton, SIGNAL(clicked()), this, SLOT(saveImage()));
+
 
     connect(this, SIGNAL(sendingText(QString)), m_pUi->viewer, SLOT(setLabelThree(QString)));
     connect(m_pUi->horizontalSlider, SIGNAL(valueChanged(int)), m_pUi->viewer, SLOT(setLabelOneNumber(int)));
@@ -38,10 +41,21 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 
+//Destructor
 MainWindow::~MainWindow()
 {
     delete m_pUi;
 }
+
+
+void MainWindow::saveImage()
+{
+    QString extension = "jpg";
+    QUuid uuid = QUuid::createUuid();
+    QString tempFileFullPath = QDir::toNativeSeparators(QDir::tempPath() + "/" + qApp->applicationName().replace(" ", "") + "_" + uuid.toString(QUuid::WithoutBraces) + "." +  extension);
+    m_pUi->viewer->saveImage(tempFileFullPath);
+}
+
 
 void MainWindow::setLabelToBob()
 {

@@ -79,18 +79,23 @@ void Viewer::setPixmapData(QByteArray data)
             if (!m_pixmap.loadFromData(QByteArray::fromBase64(data))) {
                 qDebug("Failed to load data");
                 m_loadFailed = true;
-                return;
             }
         } else {
             if (!m_pixmap.loadFromData(data)) {
                 qDebug("Failed to load data");
                 m_loadFailed = true;
-                return;
             }
         }
         update();
     }
 }
+
+void Viewer::saveImage(QString filePath)
+{
+    m_pixmap.save(filePath, nullptr, 100); //C++ is not as smart as python. If you want to use the 3rd input, you need to use the 2nd as well.
+}
+
+
 
 void Viewer::onUpdateClicked()
 {
